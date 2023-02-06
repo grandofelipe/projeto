@@ -1,4 +1,4 @@
-package br.edu.projeto.model;
+ package br.edu.projeto.model;
 
 import java.util.ArrayList;
 import java.util.List;
