@@ -1,10 +1,18 @@
 package br.edu.projeto.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -34,6 +42,9 @@ public class Item {
 	@NotNull
 	@Column (name = "descricao")
 	private String desc;
+	
+    @ManyToMany(mappedBy = "itens", fetch = FetchType.EAGER)
+    private List<Orcamento> orcamento= new ArrayList<Orcamento>();
 
 	public String getId() {
 		return id;
