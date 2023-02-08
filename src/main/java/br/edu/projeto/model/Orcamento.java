@@ -1,12 +1,19 @@
 package br.edu.projeto.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -47,6 +54,21 @@ public class Orcamento {
 	
 	@ManyToOne
 	private Cliente cliente;
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	 //Mapeia tabela intermediária (criada em relacionamentos Muitos para muitos), não é necessário uma classe modelo para a tabela intermediária
+	 @JoinTable(
+	      name = "orçamento_itens",
+	      joinColumns = @JoinColumn(name = "fk_orcamento_id_orcamento"),
+	      inverseJoinColumns = @JoinColumn(name = "fk_item_id_item")
+	)
+	private List<Item> itens = new ArrayList<Item>();
+
+	
+	
+	
+	
+	
 
 	public String getId() {
 		return id;
