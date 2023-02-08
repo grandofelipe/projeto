@@ -89,6 +89,7 @@ public class CadastroUsuarioController implements Serializable {
     			permissao.addUsuario(this.usuario);	
     		}
         	try {
+        		this.usuario.setSenha(this.passwordHash.generate(this.usuario.getSenha().toCharArray()));
 		        if (this.usuario.getId() == null) {
 		        	this.usuario.setSenha(this.passwordHash.generate(this.usuario.getSenha().toCharArray()));
 		        	this.usuarioDAO.salvar(this.usuario);
@@ -98,6 +99,7 @@ public class CadastroUsuarioController implements Serializable {
 		        	this.usuarioDAO.atualizar(this.usuario);
 		        	this.facesContext.addMessage(null, new FacesMessage("Usuário Atualizado"));
 		        }
+		        this.listaUsuarios = usuarioDAO.listarTodos();
 		        //Atualiza e executa elementos Javascript na tela assincronamente
 			    PrimeFaces.current().executeScript("PF('usuarioDialog').hide()");
 			    PrimeFaces.current().ajax().update("form:messages", "form:dt-usuarios");
