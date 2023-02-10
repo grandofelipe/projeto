@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/WEB-INF/templates/default.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h1>Página de Login</h1>
+        
+        <div class="card">
+    <h:form id="form">
+        <p:dataTable id="cliente" var="cliente" value="#{clienteController.clientes}">
+            <f:facet name="header">
+                Cliente
+            </f:facet>
+
+            <p:column headerText="Cliente">
+                <h:outputText value="#{cliente.cnpj}" />
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{cliente.nome}" />
+            </p:column>
+            <p:column headerText="Estado">
+                <h:outputText value="#{cliente.estado}" />
+            </p:column>
+            <p:column headerText="Cep">
+                <h:outputText value="#{cliente.cep}" />
+            </p:column>
+        </p:dataTable>
+
+    </h:form>
+</div>
+    </ui:define>
+</ui:composition>

@@ -26,33 +26,33 @@ public class ClienteDAO implements Serializable{
 	
 	//Query usando a API Criteria do Hibernate
 	//Indicada para consultas complexas
-	public Boolean ehUsuarioUnico(String u) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Cliente> criteria = cb.createQuery(Cliente.class);
-        Root<Cliente> cliente = criteria.from(Cliente.class);
-        criteria.select(cliente);
-        criteria.where(cb.like(cliente.get("cliente"), u));
-        if (em.createQuery(criteria).getResultList().isEmpty())
-        	return true;
-        return false;
-    }
+//	public Boolean ehUsuarioUnico(String u) {
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery<Cliente> criteria = cb.createQuery(Cliente.class);
+//        Root<Cliente> cliente = criteria.from(Cliente.class);
+//        criteria.select(cliente);
+//        criteria.where(cb.like(cliente.get("cliente"), u));
+//        if (em.createQuery(criteria).getResultList().isEmpty())
+//        	return true;
+//        return false;
+//    }
 	
 	//Query usando a linguagem HQL do Hibernate
 	//Idnicada para consultas simples
 	public List<Cliente> listarTodos() {
-	    return em.createQuery("SELECT a FROM Cliente c ", Cliente.class).getResultList();      
+	    return em.createQuery("SELECT c FROM Cliente c ", Cliente.class).getResultList();      
 	}
 	
-	public void salvar(Cliente c) {
-		em.persist(c);
-	}
-	
-	public void atualizar(Cliente c) {
-		em.merge(c);
-	}
-	
-	public void excluir(Cliente c) {
-		em.remove(em.getReference(Cliente.class, c.getCnpj()));
-	}
+//	public void salvar(Cliente c) {
+//		em.persist(c);
+//	}
+//	
+//	public void atualizar(Cliente c) {
+//		em.merge(c);
+//	}
+//	
+//	public void excluir(Cliente c) {
+//		em.remove(em.getReference(Cliente.class, c.getCnpj()));
+//	}
 	
 }

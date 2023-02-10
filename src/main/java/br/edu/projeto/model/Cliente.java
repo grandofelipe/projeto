@@ -3,6 +3,7 @@ package br.edu.projeto.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -35,7 +36,6 @@ public class Cliente {
 	
 	@OneToMany
 	private List<Orcamento> lista_orcamentos;
-	
 
 	public String getCnpj() {
 		return cnpj;
@@ -68,6 +68,13 @@ public class Cliente {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+
+	public List<Orcamento> getLista_orcamentos() {
+		return lista_orcamentos;
+	}
+
+	public void setLista_orcamentos(List<Orcamento> lista_orcamentos) {
+		this.lista_orcamentos = lista_orcamentos;
+	}
 	
 }
