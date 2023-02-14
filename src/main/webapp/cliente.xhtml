@@ -7,28 +7,79 @@
     template="/WEB-INF/templates/default.xhtml"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h1>Página de Login</h1>
+        <h1>Relação de Clientes</h1>
         
         <div class="card">
-    <h:form id="form">
-        <p:dataTable id="cliente" var="cliente" value="#{clienteController.clientes}">
-            <f:facet name="header">
-                Cliente
-            </f:facet>
-
-            <p:column headerText="Cliente">
-                <h:outputText value="#{cliente.cnpj}" />
-            </p:column>
-            <p:column headerText="Name">
-                <h:outputText value="#{cliente.nome}" />
-            </p:column>
-            <p:column headerText="Estado">
-                <h:outputText value="#{cliente.estado}" />
-            </p:column>
-            <p:column headerText="Cep">
-                <h:outputText value="#{cliente.cep}" />
-            </p:column>
-        </p:dataTable>
+        	 <h:form id="dialogs">
+        	<p:growl id="mensagens"/>
+	        <p:dialog header="Novo Cliente" showEffect="fade" modal="true" widgetVar="clienteDialog" responsive="true">   
+	            <p:outputPanel id="cliente-conteudo-dialog" class="ui-fluid">
+	                <p:outputPanel rendered="#{not empty clienteController.cliente}">
+	                    <div class="field">
+	                        <p:outputLabel for="nome">Cliente</p:outputLabel>
+	                        <p:inputText id="nome" value="#{clienteController.cliente.nome}" required="true" />
+	                    </div>
+	                    <div class="field">
+	                        <p:outputLabel for="cnpj">CNPJ</p:outputLabel>
+	                        <p:inputText id="cnpj" value="#{clienteController.cliente.cnpj}" required="true"/>
+	                    </div>
+	                    <div class="field">
+	                        <p:outputLabel for="cep">Senha</p:outputLabel>
+	                        <p:inputText id="cep" value="#{clienteController.cliente.cep}" required="true"/>
+	                    </div>
+	                </p:outputPanel>
+	            </p:outputPanel>
+	
+	            <f:facet name="footer">
+	                <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{clienteController.salvar}"
+	                    update="cliente-conteudo-dialog dialogs:messages" process="cliente-conteudo-dialog @this" />
+	                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('clienteDialog').hide()" class="ui-button-secondary" type="button" />
+	            </f:facet>
+	            
+	        </p:dialog>
+	          <p:confirmDialog widgetVar="removerClienteDialog" showEffect="fade" width="300"
+	            message="Desejar remover este cliente?" header="Confirm" severity="warn">
+	            <p:commandButton value="Sim" icon="pi pi-check" actionListener="#{clienteController.remover}"
+	                process="@this" oncomplete="PF('removerClienteDialog').hide()" />
+	            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('removerClienteDialog').hide()" />
+	        </p:confirmDialog>
+	        </h:form>
+	        
+	        <h:form id="form">
+            <p:growl id="mensagens" showDetail="true" />
+            
+            <p:toolbar>
+	            <p:toolbarGroup>
+	                <p:commandButton value="Novo" icon="pi pi-plus" actionListener="#{clienteController.novoCadastro()}"
+	                    update=":dialogs:cliente-conteudo-dialog" oncomplete="PF('clienteDialog').show()"
+	                    styleClass="ui-button-success" style="margin-right: .5rem">
+	                    <p:resetInput target=":dialogs:cliente-conteudo-dialog" />
+	                </p:commandButton>
+	            </p:toolbarGroup>
+	        </p:toolbar>
+	        
+	        
+	        
+	        
+    		<h:form id="form">
+        		<p:dataTable id="cliente" var="cliente" value="#{clienteController.clientes}">
+		            <f:facet name="header">
+		                Cliente
+		            </f:facet>
+		
+		            <p:column headerText="Cliente">
+		                <h:outputText value="#{cliente.cnpj}" />
+		            </p:column>
+		            <p:column headerText="Name">
+		                <h:outputText value="#{cliente.nome}" />
+		            </p:column>
+		            <p:column headerText="Estado">
+		                <h:outputText value="#{cliente.estado}" />
+		            </p:column>
+		            <p:column headerText="Cep">
+		                <h:outputText value="#{cliente.cep}" />
+		            </p:column>
+		        </p:dataTable>
 
     </h:form>
 </div>

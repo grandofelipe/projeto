@@ -43,16 +43,16 @@ public class ClienteDAO implements Serializable{
 	    return em.createQuery("SELECT c FROM Cliente c ", Cliente.class).getResultList();      
 	}
 	
-//	public void salvar(Cliente c) {
-//		em.persist(c);
-//	}
-//	
-//	public void atualizar(Cliente c) {
-//		em.merge(c);
-//	}
-//	
-//	public void excluir(Cliente c) {
-//		em.remove(em.getReference(Cliente.class, c.getCnpj()));
-//	}
+	public void salvar(Cliente c) {
+		em.persist(c);
+	}
+	
+	public void atualizar(Cliente c) {
+		em.merge(c);
+	}
+	
+	public void excluir(Cliente c) {
+		em.remove(em.getReference(Cliente.class, c.getCnpj()));
+	}
 	
 }
