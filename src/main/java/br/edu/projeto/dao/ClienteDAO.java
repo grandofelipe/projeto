@@ -3,20 +3,31 @@ package br.edu.projeto.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 import br.edu.projeto.model.Cliente;
 import br.edu.projeto.model.Usuario;
 
 public class ClienteDAO implements Serializable{
 
-	@Inject
+	@PersistenceContext
 	//Cria a conexão e controla a transação com o SGBD (usado pelo Hibernate)
     private EntityManager em;
+	
+	@Resource
+	private UserTransaction tr;
 	
 	public Cliente encontrarId(String id) {
        // return em.find(Cliente.class, id);
@@ -44,6 +55,14 @@ public class ClienteDAO implements Serializable{
 	}
 	
 	public void salvar(Cliente c) {
+		try {
+			tr.begin();
+			em.persist(c);	
+			tr.commit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		em.persist(c);
 	}
 	
